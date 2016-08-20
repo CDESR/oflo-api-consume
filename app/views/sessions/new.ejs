@@ -1,0 +1,31 @@
+<!-- Login page, new sessions -->
+<div class="jumbrotron">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+
+    	<h1><span class="fa fa-sign-in"></span> Login to OFlo</h1>
+
+    	<!-- show any messages that come back with authentication -->
+
+    	<!-- SIGNUP FORM -->
+    	<form action="/login" method="post">
+    		<div class="form-group">
+    			<label>Email</label>
+    			<input type="email" class="form-control" name="email" placeholder="Enter you email address">
+    		</div>
+    		<div class="form-group">
+    			<label>Password</label>
+    			<input type="password" class="form-control" name="password" placeholder="Enter password">
+    		</div>
+
+    		<button type="submit" class="btn btn-info btn-lg">Log In</button>
+    	</form>
+
+    	<hr>
+
+      <p>Forgot email/password?</p>
+      <a href="/signup" class="btn btn-danger btn-md">Reset account</a>
+
+    </div>
+  </div>
+</div>

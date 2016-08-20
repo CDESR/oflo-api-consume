@@ -3,6 +3,6 @@ module.exports = function(app) {
   var staticPageController = require('../controllers/staticpage.controller');
 
   // static page routes
-  app.get('/', staticPageController.renderHome);
-
+  app.route('/')
+    .get(staticPageController.renderHome);
 };

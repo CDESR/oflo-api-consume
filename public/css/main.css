@@ -1,2 +1,9 @@
-/* THIS IS MAIN FILE TO IMPORT ALL OTHER CSS FILES */
+/* THIS IS MAIN CSS FILE TO IMPORT ALL OTHER CSS FILES */
 @import "index.css";
+
+/* Importing fonts to apply across all */
+@import "https://fonts.googleapis.com/css?family=Lobster+Two";
+
+body {
+  font-family: 'Lobster Two', cursive;
+}

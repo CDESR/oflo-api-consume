@@ -15,6 +15,10 @@ module.exports = function() {
 
   /* ~~~~ Setting up routes ~~~~ */
   require('../app/routes/staticpage.routes')(app);
+  require('../app/routes/users.routes')(app);
+  require('../app/routes/sessions.routes')(app);
+  require('../app/routes/questions.routes')(app);
+  require('../app/routes/commonquestions.routes')(app);
 
   return app;
 };
