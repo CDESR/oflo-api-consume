@@ -4,16 +4,22 @@
     <meta charset="utf-8">
     <title>OFlo</title>
     <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <!-- Main CSS -->
-    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
   </head>
   <body>
     <header>
+
       <!-- If logged in, then include partial -->
-      <% include ./partials/header.ejs %>
+      <% if(session) {%>
+        <% include ./partials/header.ejs %>
+      <%} else {%>
+
+      <%}%>
+
     </header>
     <!-- Content Body -->
     <div class="container text-center">
