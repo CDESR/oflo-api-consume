@@ -1,0 +1,25 @@
+/* QUESTIONS CSS */
+
+.question-sort {
+  margin: 20px auto;
+}
+
+.questions-wrapper {
+  border: 1px solid black;
+}
+
+.left-col {
+  border: 1px solid black;
+}
+
+.right-col {
+  border: 1px solid black;
+}
+
+.question-col {
+  border-bottom: 3px solid black;
+}
+
+.studentname-col {
+  border-bottom: 3px solid black;
+}

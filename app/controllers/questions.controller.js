@@ -10,6 +10,10 @@ module.exports = {
       title: 'Post a question'
     });
   },
+  show: function(req, res, next) {
+    // show student past posted question (individual)
+    res.render('questions/show');
+  },
   create: function(req, res, next) {
     // post new question
   },

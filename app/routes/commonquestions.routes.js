@@ -3,10 +3,13 @@ module.exports = function(app) {
 
   //restful common questions routes
   app.route('/commonquestions')
-    .get(commonquestionsController.index)
+    .get(commonquestionsController.index);
     // .delete(commonquestionsController.destroy);
 
   app.route('/commonquestions/new')
-    .get(commonquestionsController.new)
+    .get(commonquestionsController.new);
     // .post(commonquestionsController.create)
+
+  app.route('/mycommonquestions')
+    .get(commonquestionsController.show);
 };

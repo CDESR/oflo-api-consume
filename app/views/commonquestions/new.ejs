@@ -1,0 +1,25 @@
+<!-- New common question page, create common question -->
+<div class="jumbrotron">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+
+    	<h1><span class="fa fa-clone"></span> <%= title %> </h1>
+
+    	<!-- show any messages that come back with authentication -->
+
+    	<!-- NEW COMMON QUESTION FORM -->
+    	<form action="/commonquestion/new" method="post">
+        <div class="form-group">
+            <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+            <textarea name="commonquestions" cols=76 rows=10></textarea>
+
+        </div>
+
+    		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share fa-fw"></i></span> Post</button>
+    	</form>
+
+    	<hr>
+
+    </div>
+  </div>
+</div>

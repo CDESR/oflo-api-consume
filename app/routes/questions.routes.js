@@ -6,7 +6,10 @@ module.exports = function(app) {
     .get(questionsController.index);
 
   app.route('/questions/new')
-    .get(questionsController.new)
+    .get(questionsController.new);
     // .post(questionsController.create)
     // .delete(questionsController.destroy);
+
+  app.route('/myquestions')
+    .get(questionsController.show);
 };
