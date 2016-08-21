@@ -1,13 +1,13 @@
-<!-- Sign up page, new users -->
+<!-- Edit profile page, edit user -->
 <div class="jumbrotron">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
 
-    	<h1><span class="fa fa-user"></span></h1>
+    	<h1><span class="fa fa-edit"></span> <%= title %> </h1>
 
     	<!-- show any messages that come back with authentication -->
 
-    	<!-- SIGNUP FORM -->
+    	<!-- EDIT USER FORM -->
     	<form action="/signup" method="post">
         <div class="form-group">
           <div class="input-group">
@@ -23,13 +23,10 @@
           </div>
         </div>
 
-    		<button type="submit" class="btn btn-warning btn-lg">Sign Up</button>
+    		<button type="submit" class="btn btn-info btn-lg">Update</button>
     	</form>
 
     	<hr>
-
-    	<p>Already have an account? </p>
-      <a href="/login" class="btn btn-info btn-md">Log In</a>
 
     </div>
   </div>

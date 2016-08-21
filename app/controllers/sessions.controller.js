@@ -1,15 +1,18 @@
 module.exports = {
   new: function(req, res) {
     res.render('sessions/new', {
-      title: 'Log In'
+      title: 'Login to OFlo'
     });
   },
   create: function(req, res, next) {
     // create new session (log in)
   },
   /* -- users/questions related -- */
-  show: function(req, res, next) {
-    // show user profile and past questions posted (able to edit user)
+  edit: function(req, res, next) {
+    // show user profile (edit)
+    res.render('users/edit', {
+      title: 'Edit Profile'
+    });
   },
   update: function(req, res, next) {
     // update user

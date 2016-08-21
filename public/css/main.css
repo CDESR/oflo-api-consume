@@ -1,5 +1,6 @@
 /* THIS IS MAIN CSS FILE TO IMPORT ALL OTHER CSS FILES */
 @import "index.css";
+@import "header.css";
 
 /* Importing fonts to apply across all */
 @import "https://fonts.googleapis.com/css?family=Lobster+Two";

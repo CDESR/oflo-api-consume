@@ -7,8 +7,8 @@ module.exports = function(app) {
     .post(sessionsController.create);
 
   // use sessionsController ==> accessible only after logged in
-  app.route('/:user_id')
-      .get(sessionsController.show)
+  app.route('/edit')
+      .get(sessionsController.edit)
       .put(sessionsController.update)
       .delete(sessionsController.destroy);
  };

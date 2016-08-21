@@ -6,6 +6,9 @@ module.exports = {
   },
   new: function(req, res, next) {
     // new question form
+    res.render('questions/new', {
+      title: 'Post a question'
+    });
   },
   create: function(req, res, next) {
     // post new question

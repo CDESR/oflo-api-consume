@@ -11,6 +11,10 @@
     <link href="css/main.css" rel="stylesheet" type="text/css">
   </head>
   <body>
+    <header>
+      <!-- If logged in, then include partial -->
+      <% include ./partials/header.ejs %>
+    </header>
     <!-- Content Body -->
     <div class="container text-center">
       <%- body %>
