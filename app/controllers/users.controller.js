@@ -4,8 +4,11 @@ module.exports = {
       title: 'Sign Up'
     });
   },
-  create: function(req, res, next) {
-    // create new user (sign up)
+  edit: function(req, res, next) {
+    // show user profile (edit)
+    res.render('users/:user_id', {
+      title: 'Edit Profile'
+    });
   },
   user_by_id: function(req, res, next, id) {
     // getting user_id , do something

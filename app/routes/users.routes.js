@@ -3,8 +3,10 @@ module.exports = function(app) {
 
   // restful USER routes
   app.route('/signup')
-      .get(usersController.new)
-      .post(usersController.create);
+      .get(usersController.new);
+
+  app.route('/:user_id')
+      .get(usersController.edit);
 
   app.param('user_id', usersController.user_by_id);
  };

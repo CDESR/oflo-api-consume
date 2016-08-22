@@ -13,9 +13,6 @@ module.exports = {
   show: function(req, res, next) {
     // show ITA past posted common question (individual)
     res.render('commonquestions/show');
-  },
-  destroy: function(req, res, next) {
-    // delete common question
   }
 
 };

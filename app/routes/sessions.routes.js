@@ -3,12 +3,6 @@ module.exports = function(app) {
 
   // logged in routes (session)
   app.route('/login')
-    .get(sessionsController.new)
-    .post(sessionsController.create);
+    .get(sessionsController.new);
 
-  // use sessionsController ==> accessible only after logged in
-  app.route('/edit')
-      .get(sessionsController.edit)
-      .put(sessionsController.update)
-      .delete(sessionsController.destroy);
  };

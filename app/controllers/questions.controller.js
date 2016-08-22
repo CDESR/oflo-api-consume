@@ -13,12 +13,5 @@ module.exports = {
   show: function(req, res, next) {
     // show student past posted question (individual)
     res.render('questions/show');
-  },
-  create: function(req, res, next) {
-    // post new question
-  },
-  destroy: function(req, res, next) {
-    // delete question
   }
-
 };
