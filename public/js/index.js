@@ -69,7 +69,7 @@ $(function() {
     $.ajax({
       url: url + "/users/login",
       method: "POST",
-      data: ita,
+      data: student,
       dataType: "JSON",
       crossDomain: true
     }).done(tloginSuccess)
