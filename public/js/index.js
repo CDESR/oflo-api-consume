@@ -40,7 +40,7 @@ $(function() {
     $.ajax({
       url: url + "/users/signup",
       method: "POST",
-      data: student,
+      data: ita,
       dataType: "JSON",
       crossDomain: true
     }).done(tsignupSuccess)
