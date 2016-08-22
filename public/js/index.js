@@ -47,7 +47,6 @@ $(function() {
   $flashSuccess.hide();
   $flashFail.hide();
 
-
   /* ---- Signing up ---- */
   $signupBtn.on('click', function(){
     // redirect to /signup page
@@ -119,11 +118,11 @@ $(function() {
         // .setItem converts is_admin to String
         if(localStorage.oflo_admin == "true") {
           // if ITA logged in
-          window.location = "/commonquestions";
+          window.location = "commonquestions";
         }
         else if(localStorage.oflo_admin == "false"){
           // if student logged in
-          window.location = "/questions";
+          window.location = "questions";
         }
 
     })
