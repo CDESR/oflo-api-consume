@@ -1,98 +1,64 @@
 /* ---- Ajax calls for general purposes, eg.: login/signup ---- */
 
 $(function() {
-  var $signupBtn  = $('.signup-btn'),
-      $loginBtn   = $('.login-btn'),
-      $testSignup = $(".test-signup"),
-      $testLogin = $(".test-login"),
-      url= "//localhost:7000";
+  var $signupBtn = $('.signup'),
+    $loginBtn = $('.login-btn'),
+    $first_name = $('#first_name'),
+    $last_name = $('#last_name'),
+    $emailAddress = $('#email_address'),
+    $password = $('#password'),
+    url = "//localhost:7000";
 
 
-  $signupBtn.on('click', function(){
-    console.log('signup!');
-    // ajax call to sign up
+  $signupBtn.on('click', function() {
 
-    window.location = "signup";
-  });
-
-  $loginBtn.on('click', function(){
-    console.log('login!');
-    // ajax call to login
-    window.location = "login";
-  });
-
-  $testSignup.on('click', function () {
-    var ita = {
-                first_name: "test",
-                last_name: "tester",
-                email: "test234@test.com",
-                password: "123456"
-              };
-
-    var student = {
-                first_name: "student",
-                last_name: "tester",
-                email: "student@test.com",
-                password: "123456",
-                admin: false
-              };
 
     $.ajax({
-      url: url + "/users/signup",
-      method: "POST",
-      data: ita,
-      dataType: "JSON",
-      crossDomain: true
-    }).done(tsignupSuccess)
-      .fail(tsignupFail);
+
+        url: url + '/users/signup',
+        type: 'POST',
+        data: {
+          "first_name": $first_name.val(),
+          "last_name": $last_name.val(),
+          "email": $emailAddress.val(),
+          "password": $password.val()
+        }
+      }).done(signupSuccess)
+      .fail(failResponse);
+
+
+    function signupSuccess(data) {
+      alert('success signup');
+      console.log(data);
+    }
+
+    function failResponse(request, textStatus, errorThrown) {
+      console.log('An error occurred during your request:' + request.status + ' ' + textStatus + ' ' + errorThrown);
+    }
+
   });
 
-  function tsignupSuccess(data) {
-    console.log(data);
-  }
-
-  function tsignupFail(qXHR, textStatus, errorThrown) {
-    console.log(textStatus);
-  }
-
-  $testLogin.on('click',function () {
-    var ita = {
-                email: "test234@test.com",
-                password: "123456"
-              };
-
-    var student = {
-                email: "student@test.com",
-                password: "123456"
-              };
+  $loginBtn.on('click', function(e) {
 
     $.ajax({
-      url: url + "/users/login",
-      method: "POST",
-      data: ita,
-      dataType: "JSON",
-      crossDomain: true
-    }).done(tloginSuccess)
-      .fail(tloginFail);
+        url: url + '/users/login',
+        type: 'POST',
+        data: {
+          "email": $emailAddress.val(),
+          "password": $password.val()
+        }
+      }).done(loginSuccess)
+      .fail(failResponse);
   });
 
-  function tloginSuccess(data) {
-    console.log("clicked");
-    console.log(data);
+  function failResponse(request, textStatus, errorThrown) {
+    console.log('An error occurred during your request:' + request.status + ' ' + textStatus + ' ' + errorThrown);
+    // alert('fail');
+  }
+  function loginSuccess(data) {
     localStorage.setItem("ofloToken", data.token);
     localStorage.setItem("ofloUser", data.user_id);
     localStorage.setItem("ofloAdmin", data.is_admin);
-    // $qnLabel.html('students questions')
-    // $qnTest.html('help!!!')
-    // if (localStorage.ofloAdmin) {
-    //   $qnLabel.html("Students' Questions");
-    //   $test.text("Admin here");
-    // } else{
-    //   $test.text("Students here");
-
   }
 
-  function tloginFail(qXHR, textStatus, errorThrown) {
-    console.log(qXHR);
-  }
 });
