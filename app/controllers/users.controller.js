@@ -13,5 +13,12 @@ module.exports = {
   user_by_id: function(req, res, next, id) {
     // getting user_id , do something
     // delete user here? not sure yet
-  }
+  },
+  login: function(req, res) {
+      console.log('anything');
+      res.render('sessions/new', {
+        title: 'Login to OFlo'
+      });
+    }
+
 };
