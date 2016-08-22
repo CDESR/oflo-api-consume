@@ -1,8 +1,11 @@
 /* ---- Ajax calls for general purposes, eg.: login/signup ---- */
 
 $(function() {
-  var $navbar         = $('.oflo-navbar'),
-      $url            = "http://localhost:7000/";
+  var $url            = "http://localhost:7000/",
+      $navbar         = $('.oflo-navbar'),
+      $ofloLogo       = $('.oflo-logo'),
+      $commonQTab     = $('.commonq-tab'),
+      $qnsTab         = $('.q-tab');
 
   var $signupBtn      = $('.signup-btn'),
       $signupSubmit   = $('.signup-submit'),
@@ -18,9 +21,9 @@ $(function() {
 
   var $logoutBtn      = $('.logout-btn');
 
-  var $ofloLogo       = $('.oflo-logo'),
-      $commonQTab     = $('.commonq-tab'),
-      $qnsTab         = $('.q-tab');
+  var $flashSuccess   = $('.show-success'),
+      $flashFail      = $('.show-fail');
+
   /* ------------------------------------------------------------ */
 
   /* ---- Toggling navbar ---- */
@@ -39,6 +42,11 @@ $(function() {
   } else {
     $navbar.hide();
   }
+
+  /* ---- Toggling flash ---- */
+  $flashSuccess.hide();
+  $flashFail.hide();
+
 
   /* ---- Signing up ---- */
   $signupBtn.on('click', function(){
@@ -66,11 +74,14 @@ $(function() {
       data:           signup_data
 
     }).done(function(data){
-      window.location = "/";
-
+        //console.log(data);
+        $flashSuccess.show();
+        $flashSuccess.text('Thank you for registering with us, ' + data.fullName);
     })
     .fail(function(req, textStatus, errThrown){
-      console.log(req.responseText);
+      console.log(req.responseJSON);
+      $flashFail.show();
+      $flashFail.text(req.responseJSON.message);
     });
 
   });
@@ -99,25 +110,26 @@ $(function() {
       data:           login_data
 
     }).done(function(data){
-      //console.log(data);
-      //console.log(typeof(data.is_admin));
-      localStorage.setItem("oflo_token", data.token);
-      localStorage.setItem("oflo_user", data.user_id);
-      localStorage.setItem("oflo_admin", data.is_admin);
+        //console.log(data);
+        //console.log(typeof(data.is_admin));
+        localStorage.setItem("oflo_token", data.token);
+        localStorage.setItem("oflo_user", data.user_id);
+        localStorage.setItem("oflo_admin", data.is_admin);
 
-      // .setItem converts is_admin to String
-      if(localStorage.oflo_admin == "true") {
-        // if ITA logged in
-        window.location = "/commonquestions";
-      }
-      else if(localStorage.oflo_admin == "false"){
-        // if student logged in
-        window.location = "/questions";
-      }
+        // .setItem converts is_admin to String
+        if(localStorage.oflo_admin == "true") {
+          // if ITA logged in
+          window.location = "/commonquestions";
+        }
+        else if(localStorage.oflo_admin == "false"){
+          // if student logged in
+          window.location = "/questions";
+        }
 
     })
     .fail(function(req, textStatus, errThrown){
-      console.log(req.responseText);
+      $flashFail.show();
+      $flashFail.text(req.responseJSON.message);
     });
   });
 

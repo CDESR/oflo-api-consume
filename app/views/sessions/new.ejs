@@ -6,6 +6,7 @@
     	<h1><span class="fa fa-sign-in"></span> <%= title %></h1>
 
     	<!-- show any messages that come back with authentication -->
+      <% include ../partials/flash_messages.ejs %>
 
     	<!-- LOGIN FORM -->
     	<form method="post">
