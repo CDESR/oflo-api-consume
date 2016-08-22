@@ -7,9 +7,11 @@ $(function() {
     console.log('click click');
 
     data = {
-      question_content : $qnInput.val()
+      question_content : $qnInput.val(),
+      user_id : localStorage.ofloUser
     };
     questions_input = JSON.stringify(data);
+    var token = localStorage.ofloToken;
 
     $.ajax({
 
@@ -17,16 +19,18 @@ $(function() {
       type: 'POST',
       data: questions_input,
       dataType: 'json',
-      contentType: 'application/json'
+      contentType: 'application/json',
+      Authorization: 'Bearer ' + token
 
     }).done(successFunction)
       .fail(failFunction);
 
       function successFunction() {
         alert('question posted successfully');
+        // needs to redirect to the view my questions page
       }
 
-      function failFunction(jqXHR, textStatus, errorThrown){ console.log(errorThrown); }
+      function failFunction(jqXHR, textStatus, errorThrown){ alert("Question needs to be filled"); }
 
   });
 });
