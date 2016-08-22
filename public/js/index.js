@@ -24,15 +24,23 @@ $(function() {
           "password": $password.val()
         }
       }).done(signupSuccess)
-      .fail(failResponse);
+      .fail(signupFail);
 
 
-    function signupSuccess(data) {
-      alert('success signup');
-      console.log(data);
+    function signupSuccess() {
+      $.ajax({
+
+          url: url + '/users/login',
+          type: 'POST',
+          data: {
+            "email": $emailAddress.val(),
+            "password": $password.val()
+          }
+        }).done(loginSuccess)
+        .fail(failResponse);
     }
 
-    function failResponse(request, textStatus, errorThrown) {
+    function signupFail(request, textStatus, errorThrown) {
       console.log('An error occurred during your request:' + request.status + ' ' + textStatus + ' ' + errorThrown);
     }
 
@@ -59,6 +67,12 @@ $(function() {
     localStorage.setItem("ofloToken", data.token);
     localStorage.setItem("ofloUser", data.user_id);
     localStorage.setItem("ofloAdmin", data.is_admin);
+    if (localStorage.ofloAdmin) {
+      window.location = "commonquestions";
+    }else {
+      window.location = "questions"
+    }
+
   }
 
 });
