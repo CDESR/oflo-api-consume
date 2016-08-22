@@ -1,3 +1,8 @@
+// var webstorage        = require('webstorage'),
+//     local             = require('webstorage-local');
+//
+// var storage = webstorage();
+// var localStorage = webstorage(local('./tmp'));
 
 module.exports = {
   // declare methods for each static page

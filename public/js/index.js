@@ -12,16 +12,32 @@ $(function() {
       $password       = $('.password-input');
 
   var $loginBtn       = $('.login-btn'),
-      $testSignup     = $(".test-signup"),
-      $testLogin      = $(".test-login");
+      $loginSubmit    = $('.login-submit'),
+      $email_login    = $('.email-login'),
+      $password_login = $('.password-login');
 
-// localStorage.setItem("jwt_token", "123565555");
-// localStorage.removeItem("jwt_token");
-// if(localStorage.getItem("jwt_token")){
-//   $navbar.show();
-// } else{
-//   $navbar.hide();
-// }
+  var $logoutBtn      = $('.logout-btn');
+
+  var $commonQTab     = $('.commonq-tab'),
+      $qnsTab         = $('.q-tab');
+  /* ------------------------------------------------------------ */
+
+  /* ---- Toggling navbar ---- */
+  if(localStorage.getItem("oflo_token")){
+    //if logged in
+    $navbar.show();
+    // toggle navbar menus
+    if(localStorage.oflo_admin == "true") {
+      $commonQTab.show();
+      $qnsTab.hide();
+    } else {
+      $qnsTab.show();
+      $commonQTab.hide();
+    }
+
+  } else {
+    $navbar.hide();
+  }
 
   /* ---- Signing up ---- */
   $signupBtn.on('click', function(){
@@ -42,11 +58,12 @@ $(function() {
     signup_data = JSON.stringify(data);
 
     $.ajax({
-      method: "POST",
-      url: $url + "users/signup",
-      dataType: "json",
-      contentType: 'application/json',
-      data: signup_data
+      method:         "POST",
+      url:            $url + "users/signup",
+      dataType:       "json",
+      contentType:    'application/json',
+      data:           signup_data
+
     }).done(function(data){
       window.location = "/";
 
@@ -58,86 +75,61 @@ $(function() {
   });
 
   /* ---- Login ---- */
-  $loginBtn.on('click', function(){
-    console.log('login!');
-    // ajax call to login
+  $loginBtn.on('click', function(e){
+    // redirect to login page
     window.location = "login";
   });
 
+  $loginSubmit.on('click', function(e){
+    e.preventDefault();
+    // ajax call to login
+    data = {
+      email:      $email_login.val(),
+      password:   $password_login.val()
+    };
 
-  // $testSignup.on('click', function () {
-  //   var ita = {
-  //               first_name: "test",
-  //               last_name: "tester",
-  //               email: "test234@test.com",
-  //               password: "123456"
-  //             };
-  //
-  //   var student = {
-  //               first_name: "student",
-  //               last_name: "tester",
-  //               email: "student@test.com",
-  //               password: "123456",
-  //               admin: false
-  //             };
-  //
-  //   $.ajax({
-  //     url: url + "/users/signup",
-  //     method: "POST",
-  //     data: student,
-  //     dataType: "JSON",
-  //     crossDomain: true
-  //   }).done(tsignupSuccess)
-  //     .fail(tsignupFail);
-  // });
-  //
-  // function tsignupSuccess(data) {
-  //   console.log(data);
-  // }
-  //
-  // function tsignupFail(qXHR, textStatus, errorThrown) {
-  //   console.log(textStatus);
-  // }
-  //
-  // $testLogin.on('click',function () {
-  //   var ita = {
-  //               email: "test234@test.com",
-  //               password: "123456"
-  //             };
-  //
-  //   var student = {
-  //               email: "student@test.com",
-  //               password: "123456"
-  //             };
-  //
-  //   $.ajax({
-  //     url: url + "/users/login",
-  //     method: "POST",
-  //     data: ita,
-  //     dataType: "JSON",
-  //     crossDomain: true
-  //   }).done(tloginSuccess)
-  //     .fail(tloginFail);
-  // });
-  //
-  // function tloginSuccess(data) {
-  //   console.log("clicked");
-  //   console.log(data);
-  //   localStorage.setItem("ofloToken", data.token);
-  //   localStorage.setItem("ofloUser", data.user_id);
-  //   localStorage.setItem("ofloAdmin", data.is_admin);
-  //   // $qnLabel.html('students questions')
-  //   // $qnTest.html('help!!!')
-  //   // if (localStorage.ofloAdmin) {
-  //   //   $qnLabel.html("Students' Questions");
-  //   //   $test.text("Admin here");
-  //   // } else{
-  //   //   $test.text("Students here");
-  //
-  // }
-  //
-  // function tloginFail(qXHR, textStatus, errorThrown) {
-  //   console.log(qXHR);
-  // }
+    login_data = JSON.stringify(data);
+
+    $.ajax({
+      method:         "POST",
+      url:            $url + "users/login",
+      dataType:       "json",
+      contentType:    'application/json',
+      data:           login_data
+
+    }).done(function(data){
+      //console.log(data);
+      //console.log(typeof(data.is_admin));
+      localStorage.setItem("oflo_token", data.token);
+      localStorage.setItem("oflo_user", data.user_id);
+      localStorage.setItem("oflo_admin", data.is_admin);
+
+      // .setItem converts is_admin to String
+      if(localStorage.oflo_admin == "true") {
+        // if ITA logged in
+        window.location = "/commonquestions";
+      }
+      else if(localStorage.oflo_admin == "false"){
+        // if student logged in
+        window.location = "/questions";
+      }
+
+    })
+    .fail(function(req, textStatus, errThrown){
+      console.log(req.responseText);
+    });
+  });
+
+  /* ---- Logout ---- */
+  $logoutBtn.on('click', function(e){
+    e.preventDefault();
+    // destroy the token, user and admin
+    localStorage.removeItem("oflo_token");
+    localStorage.removeItem("oflo_user");
+    localStorage.removeItem("oflo_admin");
+    // redirect to root page
+    window.location = "/";
+  });
+
 
 });

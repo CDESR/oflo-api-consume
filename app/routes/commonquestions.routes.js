@@ -2,12 +2,12 @@ module.exports = function(app) {
   var commonquestionsController  = require('../controllers/commonquestions.controller');
 
   //restful common questions routes
-  app.route('/')
+  app.route('/commonquestions')
     .get(commonquestionsController.index);
 
   app.route('/commonquestions/new')
     .get(commonquestionsController.new);
 
-  app.route('/commonquestions')
+  app.route('/commonquestions/show')
     .get(commonquestionsController.show);
 };
