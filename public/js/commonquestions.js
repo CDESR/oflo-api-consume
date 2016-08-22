@@ -5,7 +5,6 @@ $(function (){
   var $commonquestion = $("#commquestion");
 
   $('#but').on('click', function(){
-  console.log("button clicked");
 
   data = {
     commonQuestion : $commonquestion.val()
@@ -29,7 +28,7 @@ $(function (){
 
 function successFunction(data){
   alert("Successfully collated to common question");
-  // redirect to the see past common question page
+  window.location.replace("/commonquestions");
 
 }
 

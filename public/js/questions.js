@@ -27,7 +27,7 @@ $(function() {
 
       function successFunction() {
         alert('question posted successfully');
-        // needs to redirect to the view my questions page
+        window.location.replace("/questions");
       }
 
       function failFunction(jqXHR, textStatus, errorThrown){ alert("Question needs to be filled"); }
