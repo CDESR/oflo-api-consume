@@ -18,7 +18,8 @@ $(function() {
 
   var $logoutBtn      = $('.logout-btn');
 
-  var $commonQTab     = $('.commonq-tab'),
+  var $ofloLogo       = $('.oflo-logo'),
+      $commonQTab     = $('.commonq-tab'),
       $qnsTab         = $('.q-tab');
   /* ------------------------------------------------------------ */
 
@@ -131,5 +132,9 @@ $(function() {
     window.location = "/";
   });
 
+  /* ---- Home ---- */
+  $ofloLogo.on('click', function(e){
+    e.preventDefault();
+  });
 
 });
