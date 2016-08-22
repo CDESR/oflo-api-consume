@@ -12,6 +12,8 @@ $(function (){
   };
   commQuestion = JSON.stringify(data);
 
+  var token = localStorage.ofloToken;
+
   $.ajax({
     // url: 'localhost:7000/commonquestions',
     url: 'http://localhost:7000/commonquestions',
@@ -19,13 +21,15 @@ $(function (){
     data: commQuestion,
     datatype: 'json',
     contentType: "application/json",
+    Authorization: 'Bearer ' + token,
     crossDomain: true,
   }).done(successFunction)
     .fail(failFunction);
 
 
 function successFunction(data){
-  console.log(data)
+  alert("Successfully collated to common question");
+  // redirect to the see past common question page
 
 }
 
