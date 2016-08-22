@@ -1,6 +1,9 @@
 /* ~~~~ Requiring installed modules ~~~~ */
 var express           = require('express'),
-    expressLayouts    = require('express-ejs-layouts');
+    expressLayouts    = require('express-ejs-layouts'),
+    flash             = require('connect-flash'),
+    cookie            = require('cookie-parser'),
+    session           = require('express-session');
 
 module.exports = function() {
 
@@ -12,6 +15,14 @@ module.exports = function() {
   app.set('view engine', 'ejs');
   app.use(expressLayouts);
   app.use(express.static('public'));
+
+  app.use(cookie());
+  app.use(session({
+    secret: "NYANYANYNAYCAt",
+    resave: true,
+    saveUninitialized: true
+  }));
+  app.use(flash());
 
   /* ~~~~ Setting up routes ~~~~ */
 
