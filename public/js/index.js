@@ -174,6 +174,7 @@ $(function() {
       $flashFail.show();
     });
 
+    });
   });
 
   /* ---- Login ---- */
