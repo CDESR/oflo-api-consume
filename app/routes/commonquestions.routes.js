@@ -8,6 +8,6 @@ module.exports = function(app) {
   app.route('/commonquestions/new')
     .get(commonquestionsController.new);
 
-  app.route('/commonquestions')
+  app.route('/commonquestions/show')
     .get(commonquestionsController.show);
 };
