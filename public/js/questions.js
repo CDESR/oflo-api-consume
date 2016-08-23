@@ -53,7 +53,6 @@ $(function() {
 
   function successFunction(data) {
     for (var i = 0; i < data.length; i++) {
-      console.log(data);
 
       $("#qnListByName").append(document.createTextNode(data[i].question_content)).append('<br/>');
 
@@ -66,8 +65,6 @@ $(function() {
   $('.list-names').on('click', '.qn-checkbox', function() {
     console.log(token);
 
-    console.log('test');
-    var stringThisCheck = JSON.stringify(this.checked);
 
     $.ajax({
         url: 'https://creds-oflo-server.herokuapp.com/questions/update/' + this.id,
@@ -75,10 +72,11 @@ $(function() {
         data: {
           answered: this.checked
         },
+        // contentType: 'application/json',
+        dataType: 'json',
         Authorization: 'Bearer ' + token,
-        crossDomain: true
-        // dataType: 'JSON',
-        // contentType: 'application/json'
+        crossDomain: true,
+        dataType: 'json'
 
       })
       .done(successFunction)
@@ -105,9 +103,9 @@ $(function() {
       url: 'https://creds-oflo-server.herokuapp.com/questions/' + user_id,
       type: 'GET',
       dataType: 'json',
+      contentType: 'application/json',
       Authorization: "Bearer " + token,
       crossDomain: true
-      // contentType: 'application/json'
 
 
     }).done(showQnByUser)
