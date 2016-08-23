@@ -1,8 +1,8 @@
 /* ---- Ajax calls for general purposes, eg.: login/signup ---- */
 
 $(function() {
-  var $url            = "https://creds-oflo-server.herokuapp.com/",
-      // $url            = "http://localhost:7000/",
+  // var $url            = "https://creds-oflo-server.herokuapp.com/",
+  var $url            = "http://localhost:7000/",
       $navbar         = $('.oflo-navbar'),
       $ofloLogo       = $('.oflo-logo'),
       $commonQTab     = $('.commonq-tab'),
@@ -24,7 +24,6 @@ $(function() {
 
   var $flashSuccess   = $('.show-success'),
       $flashFail      = $('.show-fail');
-
   /* ------------------------------------------------------------ */
 
   /* ---- Toggling navbar ---- */
@@ -56,6 +55,7 @@ $(function() {
 
   $signupSubmit.on('click', function(e) {
     e.preventDefault();
+    $flashFail.html("");
     // ajax call to sign up
     data = {
       first_name: $first_name.val(),
@@ -80,9 +80,14 @@ $(function() {
         $flashSuccess.text('Thank you for registering with us, ' + data.fullName);
     })
     .fail(function(req, textStatus, errThrown){
-      console.log(req.responseJSON);
+      //console.log(req.responseJSON.errors);
+      var errors = req.responseJSON.errors;
+
+      $.each(errors, function(key, value) {
+         console.log(value.message);
+         $flashFail.append("<li>" + value.message + "</li>");
+      });
       $flashFail.show();
-      $flashFail.text(req.responseJSON.message);
     });
 
   });
