@@ -15,12 +15,13 @@ $(function() {
 
     $.ajax({
 
-      url: 'http://localhost:7000/questions',
+      url: 'https://creds-oflo-server.herokuapp.com/',
       type: 'POST',
       data: questions_input,
       dataType: 'json',
       contentType: 'application/json',
-      Authorization: 'Bearer ' + token
+      Authorization: 'Bearer ' + token,
+      crossDomain: true
 
     }).done(successFunction)
       .fail(failFunction);

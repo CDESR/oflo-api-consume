@@ -1,7 +1,7 @@
 /* ---- Ajax calls for general purposes, eg.: login/signup ---- */
 
 $(function() {
-  var $url            = "http://localhost:7000/",
+  var $url            = "https://creds-oflo-server.herokuapp.com/",
       $navbar         = $('.oflo-navbar'),
       $ofloLogo       = $('.oflo-logo'),
       $commonQTab     = $('.commonq-tab'),
@@ -70,12 +70,14 @@ $(function() {
       url:            $url + "users/signup",
       dataType:       "json",
       contentType:    'application/json',
-      data:           signup_data
+      data:           signup_data,
+      crossDomain: true
 
     }).done(function(data){
         //console.log(data);
         $flashSuccess.show();
-        $flashSuccess.text('Thank you for registering with us, ' + data.fullName);
+        $flashSuccess.text('Thank you for registering with us, ' + data.first_name);
+
     })
     .fail(function(req, textStatus, errThrown){
       console.log(req.responseJSON);
@@ -106,7 +108,8 @@ $(function() {
       url:            $url + "users/login",
       dataType:       "json",
       contentType:    'application/json',
-      data:           login_data
+      data:           login_data,
+      crossDomain: true
 
     }).done(function(data){
         //console.log(data);
