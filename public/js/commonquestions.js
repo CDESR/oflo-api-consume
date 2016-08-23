@@ -16,13 +16,13 @@ $(function (){
 
   $.ajax({
     // url: 'localhost:7000/commonquestions',
-    url: $url,
+    url: $url + "commonquestions",
     type: 'POST',
     data: commQuestion,
     datatype: 'json',
     contentType: "application/json",
     Authorization: 'Bearer ' + token,
-    crossDomain: true,
+    crossDomain: true
   }).done(successFunction)
     .fail(failFunction);
 

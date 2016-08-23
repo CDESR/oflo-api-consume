@@ -15,8 +15,8 @@ $(function() {
 
     $.ajax({
 
-      url: 'https://creds-oflo-server.herokuapp.com/',
-      // url            = "http://localhost:7000/",
+      url: 'https://creds-oflo-server.herokuapp.com/questions',
+      // url            = "http://localhost:7000/questions",
       type: 'POST',
       data: questions_input,
       dataType: 'json',
