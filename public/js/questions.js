@@ -62,6 +62,10 @@ $(function() {
     //user update answered checkbox
   }
 
+  function failFunction() {
+    console.log("something's wrong");
+  }
+
   $('.list-names').on('click', '.qn-checkbox', function() {
     console.log(token);
 
@@ -88,10 +92,13 @@ $(function() {
 
     function failFunction(jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
-      alert("Can't put");
     }
 
   });
+
+  function failFunction(jqXHR, textStatus, errorThrown) {
+    alert('something');
+  }
 
 
 
