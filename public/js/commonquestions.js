@@ -146,7 +146,7 @@ $('.list-names').on('click', '.vote-btn', function(){
 
       url: url +commonquestion_id+"/yes",
       type: 'PUT',
-      data: {"user_id": user_id},
+      data: {"user": user_id},
       datatype: 'json'
     }).done(successFunction)
       .fail(failFunction);
@@ -157,7 +157,7 @@ $('.list-names').on('click', '.vote-btn', function(){
 
       url: url +commonquestion_id+"/no",
       type: 'PUT',
-      data: {"user_id": user_id},
+      data: {"user": user_id},
       datatype: 'json'
     }).done(successFunction)
       .fail(failFunction);
