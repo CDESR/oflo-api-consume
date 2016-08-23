@@ -3,6 +3,7 @@ $(function() {
   var $qnBtn = $("#question-btn");
   var $qnInput = $("#question-input");
   var user_id = localStorage.oflo_user;
+  var token = localStorage.oflo_token
 
 
 
@@ -14,7 +15,7 @@ $(function() {
       user_id: user_id
     };
     questions_input = JSON.stringify(data);
-    var token = localStorage.ofloToken;
+    // var token = localStorage.ofloToken;
 
     $.ajax({
       url: 'https://creds-oflo-server.herokuapp.com/questions',
@@ -68,25 +69,28 @@ $(function() {
   }
 
   $('.list-names').on('click', '.qn-checkbox', function() {
+    console.log(token);
 
     console.log('test');
     var stringThisCheck = JSON.stringify(this.checked);
 
     $.ajax({
-        url: 'https://creds-oflo-server.herokuapp.com/questions' + this.id,
+        url: 'https://creds-oflo-server.herokuapp.com/questions/update/' + this.id,
         type: 'PUT',
         data: {
           answered: this.checked
         },
+        Authorization: 'Bearer ' + token,
+        crossDomain: true
         // dataType: 'JSON',
         // contentType: 'application/json'
-          // Authorization: 'Bearer ' + token
+
       })
       .done(successFunction)
       .fail(failFunction);
 
     function successFunction(data) {
-      alert('update successful');
+      console.log(data);
     }
 
     function failFunction(jqXHR, textStatus, errorThrown) {
@@ -103,10 +107,12 @@ $(function() {
 
   $.ajax({
 
-      url: 'https://creds-oflo-server.herokuapp.com/questions',
+      url: 'https://creds-oflo-server.herokuapp.com/questions/' + user_id,
       type: 'GET',
       dataType: 'json',
-      contentType: 'application/json'
+      Authorization: "Bearer " + token,
+      crossDomain: true
+      // contentType: 'application/json'
 
 
     }).done(showQnByUser)
@@ -115,6 +121,7 @@ $(function() {
   function showQnByUser(data) {
 
     for (var i = 0; i < data.length; i++) {
+      console.log(data);
 
       $("#qnListByName").append(document.createTextNode(data[i].question_content)).append('<br/>');
 
