@@ -34,8 +34,18 @@ $(function() {
   var $logoutBtn      = $('.logout-btn');
 
   var $flashSuccess   = $('.show-success'),
-      $flashFail      = $('.show-fail');
+      $flashFail      = $('.show-fail'),
+      $loader         = $('.loader');
+
   /* ------------------------------------------------------------ */
+
+  /* ---- Toggling flash & loader ---- */
+  $flashSuccess.hide();
+  $flashFail.hide();
+  $loader.hide();
+  $( document ).ajaxStop(function() {
+    $loader.hide();
+  });
 
   /* --------- Toggling navbar --------- */
   if(localStorage.getItem("oflo_token")){
@@ -107,9 +117,6 @@ $(function() {
     window.location.replace("/account");
   });
 
-  /* ---- Toggling flash ---- */
-  $flashSuccess.hide();
-  $flashFail.hide();
 
   /* ---- Signing up ---- */
   $signupBtn.on('click', function(){
@@ -120,6 +127,7 @@ $(function() {
   $signupSubmit.on('click', function(e) {
     e.preventDefault();
     $flashFail.html("");
+    $loader.show();
     // ajax call to sign up
     data = {
       first_name: $first_name.val(),
@@ -191,7 +199,7 @@ $(function() {
 
   $loginSubmit.click(function(e){
     e.preventDefault();
-    // console.log('called');
+    $loader.show();
     // ajax call to login
     data = {
       email:      $email_login.val(),
