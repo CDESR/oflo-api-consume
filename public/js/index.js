@@ -2,7 +2,7 @@
 
 $(function() {
   // var $url            = "https://creds-oflo-server.herokuapp.com/",
-  var $url            = "http://localhost:7000/",
+  var $url            = "https://creds-oflo-server.herokuapp.com/",
       $navbar         = $('.oflo-navbar'),
       $ofloLogo       = $('.oflo-logo'),
       $commonQTab     = $('.commonq-tab'),

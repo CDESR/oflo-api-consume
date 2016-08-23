@@ -52,19 +52,14 @@ $(function() {
     .fail(failFunction);
 
   function successFunction(data) {
-
     for (var i = 0; i < data.length; i++) {
-      $("#qnList").append(document.createTextNode(data[i].question_content)).append('<br/>');
+      console.log(data);
 
-      var ansCheckId = data[i]._id;
+      $("#qnListByName").append(document.createTextNode(data[i].question_content)).append('<br/>');
 
-      if (data[i].answered === true) {
-        $("#ansCheck").append('<input class="qn-checkbox" type="checkbox" name="ans-checkbox" id=' + ansCheckId + ' checked "VisibleCheckbox">').append('<br/>');
-      } else {
-        $("#ansCheck").append('<input class="qn-checkbox" type="checkbox" name="ans-checkbox" id=' + ansCheckId + ' "VisibleCheckbox">').append('<br/>');
-      }
+      $("#userFname").append(document.createTextNode(data[i].user_id['0'].first_name)).append('<br/>');
+      // console.log(data[i]);
     }
-
     //user update answered checkbox
   }
 
@@ -121,13 +116,17 @@ $(function() {
   function showQnByUser(data) {
 
     for (var i = 0; i < data.length; i++) {
-      console.log(data);
+      $("#qnList").append(document.createTextNode(data[i].question_content)).append('<br/>');
 
-      $("#qnListByName").append(document.createTextNode(data[i].question_content)).append('<br/>');
+      var ansCheckId = data[i]._id;
 
-      $("#userFname").append(document.createTextNode(data[i].user_id['0'].first_name)).append('<br/>');
-      // console.log(data[i]);
+      if (data[i].answered === true) {
+        $("#ansCheck").append('<input class="qn-checkbox" type="checkbox" name="ans-checkbox" id=' + ansCheckId + ' checked "VisibleCheckbox">').append('<br/>');
+      } else {
+        $("#ansCheck").append('<input class="qn-checkbox" type="checkbox" name="ans-checkbox" id=' + ansCheckId + ' "VisibleCheckbox">').append('<br/>');
+      }
     }
+
   }
 
   function failShowQn(jqXHR, textStatus, errorThrown) {
