@@ -3,7 +3,7 @@ $(function() {
   var $qnBtn = $("#question-btn");
   var $qnInput = $("#question-input");
   var user_id = localStorage.oflo_user;
-  var token = localStorage.oflo_token
+  var token = localStorage.oflo_token;
 
 
 
