@@ -71,7 +71,7 @@ $(function() {
     var stringThisCheck = JSON.stringify(this.checked);
 
     $.ajax({
-        url: 'http://localhost:7000/questions/put/' + this.id,
+        url: 'http://localhost:7000/questions/update/' + this.id,
         type: 'PUT',
         data: {
           answered: this.checked
