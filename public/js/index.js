@@ -2,6 +2,7 @@
 
 $(function() {
   var $url            = "https://creds-oflo-server.herokuapp.com/",
+      // $url            = "http://localhost:7000/",
       $navbar         = $('.oflo-navbar'),
       $ofloLogo       = $('.oflo-logo'),
       $commonQTab     = $('.commonq-tab'),
@@ -76,8 +77,7 @@ $(function() {
     }).done(function(data){
         //console.log(data);
         $flashSuccess.show();
-        $flashSuccess.text('Thank you for registering with us, ' + data.first_name);
-
+        $flashSuccess.text('Thank you for registering with us, ' + data.fullName);
     })
     .fail(function(req, textStatus, errThrown){
       console.log(req.responseJSON);
