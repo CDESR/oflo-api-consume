@@ -1,9 +1,9 @@
 /* ---- Ajax calls for common questions ---- */
 $(function (){
 
-  var $url = "https://creds-oflo-server.herokuapp.com/";
+  var $url = "https://creds-oflo-server.herokuapp.com/",
       // url            = "http://localhost:7000/",;
-  var $commonquestion = $("#commquestion");
+      $commonquestion = $("#commquestion");
 
   $('#but').on('click', function(){
 
