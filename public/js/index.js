@@ -80,11 +80,15 @@ $(function() {
         $flashSuccess.text('Thank you for registering with us, ' + data.fullName);
     })
     .fail(function(req, textStatus, errThrown){
-      console.log(req.responseJSON);
-      $flashFail.show();
-      $flashFail.text(req.responseJSON.message);
-    });
+        var errors = req.responseJSON.errors;
+        $.each(errors, function(key, value) {
+          console.log(value.message);
+          $flashFail.append("<li>" + value.message + "</li>");
+        })
+        $flashFail.show();
 
+
+    });
   });
 
   /* ---- Login ---- */
