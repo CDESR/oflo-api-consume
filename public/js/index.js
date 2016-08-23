@@ -6,7 +6,9 @@ $(function() {
       $navbar         = $('.oflo-navbar'),
       $ofloLogo       = $('.oflo-logo'),
       $commonQTab     = $('.commonq-tab'),
+      $commonQIndex   = $('.commonq-index-tab'),
       $qnsTab         = $('.q-tab'),
+      $qnsIndex       = $('.q-index-tab'),
       $accountField   = $('.account-field');
 
   var $to_common      = $('.to-commonquestions'),
@@ -42,19 +44,24 @@ $(function() {
     // toggle navbar menus
     if(localStorage.oflo_admin == "true") {
       $commonQTab.show();
+      $commonQIndex.show();
       $qnsTab.hide();
+      $qnsIndex.hide();
     } else {
       $qnsTab.show();
+      $qnsIndex.show();
       $commonQTab.hide();
+      $commonQIndex.hide();
     }
 
     // capitalize user name
-    var showName = localStorage.oflo_user_name.replace(/(^[a-z])/,function (p) { return p.toUpperCase(); } );
+    var showName = localStorage.oflo_user_name.replace(/(^[a-z])/,function(p)
+    { return p.toUpperCase(); } );
     // change account field to user name
     $accountField.text("Welcome, " + showName );
 
   } else {
-    //$navbar.hide();
+    $navbar.hide();
   }
 
   /* ---- Home ---- */
@@ -129,7 +136,7 @@ $(function() {
       dataType:       "json",
       contentType:    'application/json',
       data:           signup_data,
-      crossDomain: true
+      crossDomain:    true
 
     })
     .done(function(data){
@@ -174,7 +181,6 @@ $(function() {
       $flashFail.show();
     });
 
-    });
   });
 
   /* ---- Login ---- */
@@ -233,8 +239,9 @@ $(function() {
     e.preventDefault();
     // destroy the token, user and admin
     localStorage.removeItem("oflo_token");
-    localStorage.removeItem("oflo_user");
     localStorage.removeItem("oflo_admin");
+    localStorage.removeItem("oflo_user");
+    localStorage.removeItem("oflo_user_name");
     // redirect to root page
     window.location.replace("/");
   });
