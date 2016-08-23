@@ -88,13 +88,10 @@ $(function() {
 
     function failFunction(jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
+      alert("Can't put");
     }
 
   });
-
-  function failFunction(jqXHR, textStatus, errorThrown) {
-    alert('Question needs to be filled');
-  }
 
 
 
