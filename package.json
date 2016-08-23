@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "no tests for now"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "express": "^4.14.0",
     "express-ejs-layouts": "^2.2.0",
     "express-session": "^1.14.0",
+    "jasmine-node": "^1.14.5",
     "travis": "^0.1.1",
     "webstorage": "0.0.7",
     "webstorage-local": "0.0.3"
