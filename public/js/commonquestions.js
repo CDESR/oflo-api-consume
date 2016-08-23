@@ -135,7 +135,7 @@ $('.list-names').on('click', '.vote-btn', function(){
   var voting = this.id.slice(0, 4);
   // console.log(voting);
 
-  var user_id = localStorage.getItem('ofloUser');
+  var user_id = localStorage.getItem('oflo_user');
   // console.log("current usr : " + user_id);
 
   if (voting === 'vtys') {
@@ -146,7 +146,7 @@ $('.list-names').on('click', '.vote-btn', function(){
 
       url: url +commonquestion_id+"/yes",
       type: 'PUT',
-      data: {"votedYes": user_id},
+      data: {"user_id": user_id},
       datatype: 'json'
     }).done(successFunction)
       .fail(failFunction);
@@ -157,7 +157,7 @@ $('.list-names').on('click', '.vote-btn', function(){
 
       url: url +commonquestion_id+"/no",
       type: 'PUT',
-      data: {"votedNo": user_id},
+      data: {"user_id": user_id},
       datatype: 'json'
     }).done(successFunction)
       .fail(failFunction);
