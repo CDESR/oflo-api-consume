@@ -6,13 +6,9 @@ module.exports = {
   },
   edit: function(req, res, next) {
     // show user profile (edit)
-    res.render('users/:user_id', {
+    res.render('users/edit', {
       title: 'Edit Profile'
     });
-  },
-  user_by_id: function(req, res, next, id) {
-    // getting user_id , do something
-    // delete user here? not sure yet
   },
   login: function(req, res) {
       console.log('anything');

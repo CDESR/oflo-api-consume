@@ -5,8 +5,7 @@ module.exports = function(app) {
   app.route('/signup')
       .get(usersController.new);
 
-  app.route('/:user_id')
+  app.route('/account')
       .get(usersController.edit);
 
-  app.param('user_id', usersController.user_by_id);
  };
