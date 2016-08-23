@@ -18,3 +18,10 @@
   margin-left: 10px;
   font-size: 1.1em;
 }
+
+.loader {
+  position: fixed;
+  top: 0;
+  bottom: 10%;
+  left: 48%;
+}

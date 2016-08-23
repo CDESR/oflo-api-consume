@@ -1,12 +1,23 @@
 /* ---- Ajax calls for general purposes, eg.: login/signup ---- */
 
 $(function() {
-  var $url            = "https://creds-oflo-server.herokuapp.com/",
-      // $url            = "http://localhost:7000/",
+  // var $url            = "https://creds-oflo-server.herokuapp.com/",
+  var $url            = "http://localhost:7000/",
       $navbar         = $('.oflo-navbar'),
       $ofloLogo       = $('.oflo-logo'),
       $commonQTab     = $('.commonq-tab'),
-      $qnsTab         = $('.q-tab');
+      $commonQIndex   = $('.commonq-index-tab'),
+      $qnsTab         = $('.q-tab'),
+      $qnsIndex       = $('.q-index-tab'),
+      $accountField   = $('.account-field');
+
+  var $to_common      = $('.to-commonquestions'),
+      $to_common_new  = $('.to-commonquestions-new'),
+      $to_common_show = $('.to-commonquestions-show'),
+      $to_qns         = $('.to-questions'),
+      $to_qns_new     = $('.to-questions-new'),
+      $to_qns_show    = $('.to-questions-show'),
+      $to_user_edit   = $('.to-user-edit');
 
   var $signupBtn      = $('.signup-btn'),
       $signupSubmit   = $('.signup-submit'),
@@ -23,39 +34,100 @@ $(function() {
   var $logoutBtn      = $('.logout-btn');
 
   var $flashSuccess   = $('.show-success'),
-      $flashFail      = $('.show-fail');
+      $flashFail      = $('.show-fail'),
+      $loader         = $('.loader');
 
   /* ------------------------------------------------------------ */
 
-  /* ---- Toggling navbar ---- */
+  /* ---- Toggling flash & loader ---- */
+  $flashSuccess.hide();
+  $flashFail.hide();
+  $loader.hide();
+  $( document ).ajaxStop(function() {
+    $loader.hide();
+  });
+
+  /* --------- Toggling navbar --------- */
   if(localStorage.getItem("oflo_token")){
     //if logged in
     $navbar.show();
     // toggle navbar menus
     if(localStorage.oflo_admin == "true") {
       $commonQTab.show();
+      $commonQIndex.show();
       $qnsTab.hide();
+      $qnsIndex.hide();
     } else {
       $qnsTab.show();
+      $qnsIndex.show();
       $commonQTab.hide();
+      $commonQIndex.hide();
     }
+
+    // capitalize user name
+    var showName = localStorage.oflo_user_name.replace(/(^[a-z])/,function(p)
+    { return p.toUpperCase(); } );
+    // change account field to user name
+    $accountField.text("Welcome, " + showName );
 
   } else {
     $navbar.hide();
   }
 
-  /* ---- Toggling flash ---- */
-  $flashSuccess.hide();
-  $flashFail.hide();
+  /* ---- Home ---- */
+  $ofloLogo.on('click', function(e){
+    e.preventDefault();
+  });
+
+  /* ---- Common Tab ---- */
+  $to_common.on('click', function(e){
+    e.preventDefault();
+    window.location.replace("/commonquestions");
+  });
+
+  $to_common_new.on('click', function(e){
+    e.preventDefault();
+    window.location.replace("/commonquestions/new");
+  });
+
+  $to_common_show.on('click', function(e){
+    e.preventDefault();
+    window.location.replace("/commonquestions/show");
+  });
+
+  /* ---- Question Tab ---- */
+  $to_qns.on('click', function(e){
+    e.preventDefault();
+    window.location.replace("/questions");
+  });
+
+  $to_qns_new.on('click', function(e){
+    e.preventDefault();
+    window.location.replace("/questions/new");
+  });
+
+  $to_qns_show.on('click', function(e){
+    e.preventDefault();
+    window.location.replace("/questions/show");
+  });
+
+  /* ---- Account Tab ---- */
+  $to_user_edit.on('click', function(e){
+    e.preventDefault();
+    window.location.replace("/account");
+  });
+
 
   /* ---- Signing up ---- */
   $signupBtn.on('click', function(){
     // redirect to /signup page
-    window.location = "signup";
+    window.location.replace("/signup");
   });
 
   $signupSubmit.on('click', function(e) {
     e.preventDefault();
+    $flashFail.html("");
+    $loader.show();
     // ajax call to sign up
     data = {
       first_name: $first_name.val(),
@@ -72,33 +144,62 @@ $(function() {
       dataType:       "json",
       contentType:    'application/json',
       data:           signup_data,
-      crossDomain: true
+      crossDomain:    true
 
-    }).done(function(data){
+    })
+    .done(function(data){
         //console.log(data);
         $flashSuccess.show();
         $flashSuccess.text('Thank you for registering with us, ' + data.fullName);
+
+        // login when sign up success
+        $.ajax({
+          method:       "POST",
+          url:          $url + "users/login",
+          dataType:     "json",
+          contentType:  "application/json",
+          data:         signup_data,
+          crossDomain:  true
+
+        })
+        .done(function(data){
+          localStorage.setItem("oflo_token", data.token);
+          localStorage.setItem("oflo_user", data.user_id);
+          localStorage.setItem("oflo_admin", data.is_admin);
+
+          if(localStorage.oflo_admin == "true") {
+            // if ITA logged in
+            window.location.replace("/commonquestions");
+          }
+          else if(localStorage.oflo_admin == "false"){
+            // if student logged in
+            window.location.replace("/questions");
+          }
+
+        });
     })
     .fail(function(req, textStatus, errThrown){
-        var errors = req.responseJSON.errors;
-        $.each(errors, function(key, value) {
-          console.log(value.message);
-          $flashFail.append("<li>" + value.message + "</li>");
-        })
-        $flashFail.show();
+      //console.log(req.responseJSON.errors);
+      var errors = req.responseJSON.errors;
 
-
+      $.each(errors, function(key, value) {
+         console.log(value.message);
+         $flashFail.append("<li>" + value.message + "</li>");
+      });
+      $flashFail.show();
     });
+
   });
 
   /* ---- Login ---- */
   $loginBtn.on('click', function(e){
     // redirect to login page
-    window.location = "login";
+    window.location.replace("/login");
   });
 
-  $loginSubmit.on('click', function(e){
+  $loginSubmit.click(function(e){
     e.preventDefault();
+    $loader.show();
     // ajax call to login
     data = {
       email:      $email_login.val(),
@@ -107,35 +208,37 @@ $(function() {
 
     login_data = JSON.stringify(data);
 
+    // console.log('login click');
+
     $.ajax({
       method:         "POST",
       url:            $url + "users/login",
       dataType:       "json",
       contentType:    'application/json',
-      data:           login_data,
-      crossDomain: true
+      data:           login_data
+    })
+    .done(function(data){
+      //console.log(data);
+      //console.log(typeof(data.is_admin));
+      localStorage.setItem("oflo_token", data.token);
+      localStorage.setItem("oflo_admin", data.is_admin);
+      localStorage.setItem("oflo_user", data.user_id);
+      localStorage.setItem("oflo_user_name", data.first_name);
 
-    }).done(function(data){
-        //console.log(data);
-        //console.log(typeof(data.is_admin));
-        localStorage.setItem("oflo_token", data.token);
-        localStorage.setItem("oflo_user", data.user_id);
-        localStorage.setItem("oflo_admin", data.is_admin);
-
-        // .setItem converts is_admin to String
-        if(localStorage.oflo_admin == "true") {
-          // if ITA logged in
-          window.location = "commonquestions";
-        }
-        else if(localStorage.oflo_admin == "false"){
-          // if student logged in
-          window.location = "questions";
-        }
+      // .setItem converts is_admin to String
+      if(localStorage.oflo_admin == "true") {
+        // if ITA logged in
+        window.location.replace("/commonquestions");
+      }
+      else if(localStorage.oflo_admin == "false"){
+        // if student logged in
+        window.location.replace("/questions");
+      }
 
     })
     .fail(function(req, textStatus, errThrown){
       $flashFail.show();
-      $flashFail.text(req.responseJSON.message);
+      $flashFail.text("Invalid email or password");
     });
   });
 
@@ -144,15 +247,11 @@ $(function() {
     e.preventDefault();
     // destroy the token, user and admin
     localStorage.removeItem("oflo_token");
-    localStorage.removeItem("oflo_user");
     localStorage.removeItem("oflo_admin");
+    localStorage.removeItem("oflo_user");
+    localStorage.removeItem("oflo_user_name");
     // redirect to root page
-    window.location = "/";
-  });
-
-  /* ---- Home ---- */
-  $ofloLogo.on('click', function(e){
-    e.preventDefault();
+    window.location.replace("/");
   });
 
 });
