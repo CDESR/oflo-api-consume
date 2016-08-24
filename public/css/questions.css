@@ -1,4 +1,11 @@
 /* QUESTIONS CSS */
+.question-col{
+  border-bottom: 3px solid black;
+}
+
+.studentname-col{
+  border-bottom: 3px solid black;
+}
 
 .question-sort {
   margin: 20px auto;
