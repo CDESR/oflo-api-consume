@@ -79,7 +79,6 @@ $(function() {
         dataType: 'json',
         Authorization: 'Bearer ' + token,
         crossDomain: true,
-        dataType: 'json'
 
       })
       .done(successFunction)
