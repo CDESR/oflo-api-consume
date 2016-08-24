@@ -1,6 +1,6 @@
 /* ---- Ajax calls for common questions ---- */
 $(function() {
-  console.log("test");
+  // console.log("test");
   var url = "https://creds-oflo-server.herokuapp.com/commonquestions/",
     // url            = "http://localhost:7000/",;
     $commonquestion = $("#commquestion");
@@ -22,6 +22,19 @@ $(function() {
 
       var voteId = 'vbox-' + data[i]._id;
       var ansId = 'abox-' + data[i]._id;
+
+
+
+      var yes = data[i].votedYes.length;
+      var no = data[i].votedNo.length;
+
+      console.log(yes);
+      console.log(no);
+
+      $("#yes-total").append(document.createTextNode(yes)).append('<br/>');
+      $("#no-total").append(document.createTextNode(no)).append('<br/>');
+
+
 
       if (data[i].canVote === "true") {
         $("#canvote-check").append('<input class="canvote-box"  type="checkbox" name="canvote" id=' + voteId + ' checked "VisibleCheckbox">').append('<br/>');
