@@ -39,9 +39,8 @@ $(function() {
 
     function failFunction(jqXHR, textStatus, errorThrown) {
       alert("Question needs to be filled");
-      console.log("tex status is : " + textStatus);
+      console.log(req.responseJSON.errors);
 
-      console.log("errorThrown is : " + errorThrown);
     }
 
   });
