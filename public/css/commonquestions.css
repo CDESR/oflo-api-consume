@@ -1,7 +1,15 @@
 /* Common questions CSS */
 
+.question-col{
+  border-bottom: 3px solid black;
+}
+
+.studentname-col{
+  border-bottom: 3px solid black;
+}
+
 .vote-btn {
-  margin-top: 2.5%;
+  margin-top: 3%;
   margin-right: 5%;
   display:inline-block;
 }
