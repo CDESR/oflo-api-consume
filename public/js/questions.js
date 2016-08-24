@@ -96,7 +96,7 @@ $(function() {
   });
 
   function failFunction(jqXHR, textStatus, errorThrown) {
-    alert("cannot show list");
+    // alert("cannot show list");
   }
 
 
