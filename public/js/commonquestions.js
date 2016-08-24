@@ -186,7 +186,7 @@ $(function() {
 
 
     function successFunction(data) {
-      console.log("data :" + data);
+      alert("Successfully voted");
 
     }
 
