@@ -38,8 +38,12 @@ $(function() {
     }
 
     function failFunction(req, textStatus, errorThrown) {
-      alert("Question needs to be filled");
-      console.log(req.responseJSON.errors);
+      if (req.responseJSON.errors.message === "Question content is required") {
+        alert("Question needs to be filled");
+      }else{
+        alert("Question is too long! Remember! Brevity is the soul of wit!");
+      }
+
 
     }
 
