@@ -48,9 +48,19 @@ $(function() {
   });
 
   /* --------- Toggling navbar --------- */
-  if(localStorage.getItem("oflo_token")){
+  if(localStorage.getItem("oflo_token") !== null){
     //if logged in
     $navbar.show();
+
+    // when ajax call finish
+    if($(document).ajaxStop()) {
+      // capitalize user name
+      var showName = localStorage.oflo_user_name.replace(/(^[a-z])/,function(p)
+      { return p.toUpperCase(); } );
+      // change account field to user name
+      $accountField.text("Welcome, " + showName );
+    }
+
     // toggle navbar menus
     if(localStorage.oflo_admin == "true") {
       $commonQTab.show();
@@ -64,11 +74,7 @@ $(function() {
       $commonQIndex.hide();
     }
 
-    // capitalize user name
-    var showName = localStorage.oflo_user_name.replace(/(^[a-z])/,function(p)
-    { return p.toUpperCase(); } );
-    // change account field to user name
-    $accountField.text("Welcome, " + showName );
+
 
   } else {
     $navbar.hide();
@@ -162,21 +168,7 @@ $(function() {
           crossDomain:  true
 
         })
-        .done(function(data){
-          localStorage.setItem("oflo_token", data.token);
-          localStorage.setItem("oflo_user", data.user_id);
-          localStorage.setItem("oflo_admin", data.is_admin);
-
-          if(localStorage.oflo_admin == "true") {
-            // if ITA logged in
-            window.location.replace("/commonquestions");
-          }
-          else if(localStorage.oflo_admin == "false"){
-            // if student logged in
-            window.location.replace("/questions");
-          }
-
-        });
+        .done(loginSuccess);
     })
     .fail(function(req, textStatus, errThrown){
       //console.log(req.responseJSON.errors);
@@ -200,6 +192,7 @@ $(function() {
   $loginSubmit.click(function(e){
     e.preventDefault();
     $loader.show();
+
     // ajax call to login
     data = {
       email:      $email_login.val(),
@@ -217,30 +210,32 @@ $(function() {
       contentType:    'application/json',
       data:           login_data
     })
-    .done(function(data){
-      //console.log(data);
-      //console.log(typeof(data.is_admin));
-      localStorage.setItem("oflo_token", data.token);
-      localStorage.setItem("oflo_admin", data.is_admin);
-      localStorage.setItem("oflo_user", data.user_id);
-      localStorage.setItem("oflo_user_name", data.first_name);
-
-      // .setItem converts is_admin to String
-      if(localStorage.oflo_admin == "true") {
-        // if ITA logged in
-        window.location.replace("/commonquestions/show");
-      }
-      else if(localStorage.oflo_admin == "false"){
-        // if student logged in
-        window.location.replace("/questions");
-      }
-
-    })
+    .done(loginSuccess)
     .fail(function(req, textStatus, errThrown){
       $flashFail.show();
       $flashFail.text("Invalid email or password");
     });
   });
+
+  function loginSuccess(data){
+    //console.log(data);
+    //console.log(typeof(data.is_admin));
+    localStorage.setItem("oflo_token", data.token);
+    localStorage.setItem("oflo_admin", data.is_admin);
+    localStorage.setItem("oflo_user", data.user_id);
+    localStorage.setItem("oflo_user_name", data.first_name);
+
+
+    // .setItem converts is_admin to String
+    if(localStorage.oflo_admin == "true") {
+      // if ITA logged in
+      window.location.replace("/commonquestions/show");
+    }
+    else if(localStorage.oflo_admin == "false"){
+      // if student logged in
+      window.location.replace("/questions");
+    }
+  }
 
   /* ---- Logout ---- */
   $logoutBtn.on('click', function(e){

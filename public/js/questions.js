@@ -132,7 +132,7 @@ $(function() {
   }
 
   function failShowQn(jqXHR, textStatus, errorThrown) {
-    console.log(errorThrow);
+    console.log(errorThrown);
   }
 
 });
