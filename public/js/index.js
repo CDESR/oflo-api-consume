@@ -74,8 +74,6 @@ $(function() {
       $commonQIndex.hide();
     }
 
-
-
   } else {
     $navbar.hide();
   }

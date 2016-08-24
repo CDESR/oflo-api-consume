@@ -17,3 +17,39 @@
 #comm-qtions {
   line-height: 46px;
 }
+
+
+/* ---------- Modal popup --------- */
+
+.trigger-modal {
+  display: block;
+  font-size: 1.3em;
+}
+
+/* ---- Flipping animation ---- */
+.thumb_yes, .thumb_no {
+  border-bottom: 2px solid black;
+  animation: mymove 3s infinite;
+  animation-name: mymove;
+  animation-duration: 3s;
+  animation-timing-function: initial;
+  animation-delay: initial;
+  animation-iteration-count: infinite;
+  animation-direction: initial;
+  animation-fill-mode: initial;
+  animation-play-state: initial;
+}
+
+@keyframes mymove {
+  0% {
+      transform: rotateY(0deg);
+  }
+  100% {
+      transform: rotateY(360deg);
+  }
+}
+
+.modal-body-row-names {
+  margin-top: 20px;
+  border-top: 2px solid black;
+}

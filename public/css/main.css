@@ -2,6 +2,7 @@
 @import "header.css";
 @import "index.css";
 @import "questions.css";
+@import "commonquestions.css";
 
 /* Importing fonts to apply across all */
 @import "https://fonts.googleapis.com/css?family=Lobster+Two";

@@ -1,12 +1,19 @@
 /* ---- Ajax calls for common questions ---- */
 $(function() {
   var url = "https://creds-oflo-server.herokuapp.com/commonquestions/",
+
     // url            = "http://localhost:7000/",;
     $commonquestion = $("#commquestion"),
-    token = localStorage.oflo_token;
+    token = localStorage.oflo_token,
+    // url              = "http://localhost:7000/",;
+    $token              = localStorage.oflo_token;
+
+  var $popup_div        = $('.popup-div'),
+      $modalTitle       = $('.modal-title'),
+      $voted_yes_names  = $('.voted-yes-names'),
+      $voted_no_names   = $('.voted-no-names');
 
   $.ajax({
-
       url: url,
       type: 'GET',
       datatype: 'json',
@@ -15,13 +22,18 @@ $(function() {
       },
       crossDomain: true
     }).done(successFn1)
-    .fail(failFn1);
-
+      .fail(failFn1);
 
   function successFn1(data) {
+    //console.log(data);
     for (var i = 0; i < data.length; ++i) {
+      //console.log(data[i]);
 
-      $("#common-questions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
+      /* ---- Populate questions ---- */
+      $popup_div.append(
+        '<a class="btn trigger-modal" id=' + data[i]._id + ' data-toggle="modal" data-target="#myModal">' + data[i].commonQuestion + '</a>'
+      );
+
 
       var voteId = 'vbox-' + data[i]._id;
       var ansId = 'abox-' + data[i]._id;
@@ -58,6 +70,44 @@ $(function() {
     console.log(errorThrown);
   }
 
+  /* ---- Popup modal related ---- */
+  $popup_div.on('click', '.trigger-modal', function(){
+    // this.id from $popup_div
+    var commonquestion_id = this.id;
+    // clear the div
+    $voted_yes_names.html("");
+
+    // Get question from id
+    $.ajax({
+      method: "GET",
+      url: url + commonquestion_id,
+      dataType: 'json',
+      crossDomain: true,
+      headers: {
+        'Authorization': 'Bearer ' + $token
+      },
+    })
+    .done(function(data){
+      console.log(data);
+      // populate modal title
+      $modalTitle.text(data.commonQuestion);
+
+      // populate thumb up YES column
+      $.each(data.votedYes, function(key, value) {
+         $voted_yes_names.append("<p>" + value.fullName + "</p>");
+      });
+
+      // populate thumb down NO column
+      $.each(data.votedNo, function(key, value) {
+         $voted_no_names.append("<p>" + value.fullName + "</p>");
+      });
+
+    });
+
+  });
+
+  /* ---- end of Modal ---- */
+
 
   $.ajax({
 
@@ -73,20 +123,15 @@ $(function() {
 
 
   function successFn2(data) {
-
-    for (var i = 0; i < data.length; ++i)
-    // console.log(data[i]);
-    {
-      if (data[i].canVote === "true") {
-        $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
+    for (var i = 0; i < data.length; ++i) {
+      $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
 
         var voteYesId = 'vtys-' + data[i]._id;
         var voteNoId = 'vtno-' + data[i]._id;
 
         $("#voting-options").append('<input type="button" name="vote-yes" class="vote-btn" id=' + voteYesId + ' value="Yes">');
 
-        $("#voting-options").append('<input type="button" name="vote-no" class="vote-btn" id=' + voteNoId + ' value="No">').append('<br/>');
-      }
+      $("#voting-options").append('<input type="button" name="vote-no" class="vote-btn" id=' + voteNoId + ' value="No">').append('<br/>');
     }
 
   }
@@ -113,7 +158,7 @@ $(function() {
           'Authorization': 'Bearer ' + token
         }
       }).done(successFunction)
-      .fail(failFunction);
+        .fail(failFunction);
 
 
     function successFunction(canVote) {
@@ -242,8 +287,6 @@ $(function() {
     };
     commQuestion = JSON.stringify(data);
 
-    var token = localStorage.ofloToken;
-
     $.ajax({
         // url: 'localhost:7000/commonquestions',
         url: url,
@@ -255,8 +298,7 @@ $(function() {
           'Authorization': 'Bearer ' + token
         },
         crossDomain: true
-      }).done(successFunction)
-      .fail(failFunction);
+      }).done(successFunction);
 
 
     function successFunction(data) {
