@@ -228,7 +228,7 @@ $(function() {
       // .setItem converts is_admin to String
       if(localStorage.oflo_admin == "true") {
         // if ITA logged in
-        window.location.replace("/commonquestions");
+        window.location.replace("/commonquestions/show");
       }
       else if(localStorage.oflo_admin == "false"){
         // if student logged in
