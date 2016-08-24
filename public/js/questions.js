@@ -37,7 +37,7 @@ $(function() {
       window.location.replace("/questions");
     }
 
-    function failFunction(jqXHR, textStatus, errorThrown) {
+    function failFunction(req, textStatus, errorThrown) {
       alert("Question needs to be filled");
       console.log(req.responseJSON.errors);
 
