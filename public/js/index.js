@@ -81,6 +81,7 @@ $(function() {
 
   /* ---- Common Tab ---- */
   $to_common.on('click', function(e){
+    console.log('clicked');
     e.preventDefault();
     window.location.replace("/commonquestions");
   });
