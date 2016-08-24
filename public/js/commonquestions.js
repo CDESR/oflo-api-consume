@@ -221,7 +221,7 @@ $(function() {
 
     function successFunction(data) {
       alert("Successfully collated to common question");
-      window.location.replace("/commonquestions");
+      window.location.replace("/commonquestions/show");
 
     }
 
