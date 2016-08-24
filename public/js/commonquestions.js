@@ -67,8 +67,11 @@ $(function() {
 
   function successFn2(data) {
 
-    for (var i = 0; i < data.length; ++i) {
-      $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>')
+    for (var i = 0; i < data.length; ++i)
+    // console.log(data[i]);
+    {
+      if(data[i].canVote === "true"){
+      $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
 
       var voteYesId = 'vtys-' + data[i]._id;
       var voteNoId = 'vtno-' + data[i]._id;
@@ -76,7 +79,8 @@ $(function() {
       $("#voting-options").append('<input type="button" name="vote-yes" class="vote-btn" id=' + voteYesId + ' value="Yes">');
 
       $("#voting-options").append('<input type="button" name="vote-no" class="vote-btn" id=' + voteNoId + ' value="No">').append('<br/>');
-    };
+    }
+    }
 
   }
 
@@ -113,8 +117,8 @@ $(function() {
   });
 
   $('.list-names').on('click', '.answered-box', function() {
-    console.log('clicked');
-    console.log(this.id);
+    // console.log('clicked');
+    // console.log(this.id);
 
     var commonquestion_id = this.id.slice(5);
     console.log(commonquestion_id);
