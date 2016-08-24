@@ -3,7 +3,7 @@ $(function() {
   var $qnBtn = $("#question-btn");
   var $qnInput = $("#question-input");
   var user_id = localStorage.oflo_user;
-  var token = localStorage.oflo_token
+  var token = localStorage.oflo_token;
 
 
 
@@ -53,9 +53,6 @@ $(function() {
 
   function successFunction(data) {
     for (var i = 0; i < data.length; i++) {
-      // console.log(data);
-      // console.log(data[i].question_content);
-
       $("#qnListByName").append(document.createTextNode(data[i].question_content)).append('<br/>');
 
       $("#userFname").append(document.createTextNode(data[i].user_id['0'].first_name)).append('<br/>');
@@ -64,11 +61,13 @@ $(function() {
     //user update answered checkbox
   }
 
+  function failFunction() {
+    console.log("something's wrong");
+  }
+
   $('.list-names').on('click', '.qn-checkbox', function() {
     console.log(token);
 
-    console.log('test');
-    var stringThisCheck = JSON.stringify(this.checked);
 
     $.ajax({
         url: 'https://creds-oflo-server.herokuapp.com/questions/update/' + this.id,
@@ -76,10 +75,11 @@ $(function() {
         data: {
           answered: this.checked
         },
+        // contentType: 'application/json',
+        dataType: 'json',
         Authorization: 'Bearer ' + token,
-        crossDomain: true
-        // dataType: 'JSON',
-        // contentType: 'application/json'
+        crossDomain: true,
+        dataType: 'json'
 
       })
       .done(successFunction)
@@ -96,7 +96,7 @@ $(function() {
   });
 
   function failFunction(jqXHR, textStatus, errorThrown) {
-    alert('Question needs to be filled');
+    alert("cannot show list");
   }
 
 
@@ -106,9 +106,9 @@ $(function() {
       url: 'https://creds-oflo-server.herokuapp.com/questions/' + user_id,
       type: 'GET',
       dataType: 'json',
+      contentType: 'application/json',
       Authorization: "Bearer " + token,
       crossDomain: true
-      // contentType: 'application/json'
 
 
     }).done(showQnByUser)

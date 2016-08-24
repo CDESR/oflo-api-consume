@@ -1,1 +1,11 @@
 /* Common questions CSS */
+
+.vote-btn {
+  margin-top: 2.5%;
+  margin-right: 5%;
+  display:inline-block;
+}
+
+#comm-qtions {
+  line-height: 46px;
+}
