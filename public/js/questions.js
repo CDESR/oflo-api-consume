@@ -53,7 +53,6 @@ $(function() {
 
   function successFunction(data) {
     for (var i = 0; i < data.length; i++) {
-
       $("#qnListByName").append(document.createTextNode(data[i].question_content)).append('<br/>');
 
       $("#userFname").append(document.createTextNode(data[i].user_id['0'].first_name)).append('<br/>');
@@ -119,6 +118,7 @@ $(function() {
 
     for (var i = 0; i < data.length; i++) {
       $("#qnList").append(document.createTextNode(data[i].question_content)).append('<br/>');
+      // console.log(data[i]);
 
       var ansCheckId = data[i]._id;
 
@@ -132,7 +132,7 @@ $(function() {
   }
 
   function failShowQn(jqXHR, textStatus, errorThrown) {
-    console.log(errorThrow);
+    console.log(errorThrown);
   }
 
 });
