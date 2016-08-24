@@ -24,7 +24,9 @@ $(function() {
       data: questions_input,
       dataType: 'json',
       contentType: 'application/json',
-      Authorization: 'Bearer ' + token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
       crossDomain: true
 
       }).done(successFunction)
@@ -46,7 +48,10 @@ $(function() {
       url: 'https://creds-oflo-server.herokuapp.com/questions',
       type: 'GET',
       dataType: 'json',
-      contentType: 'application/json'
+      contentType: 'application/json',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
 
     }).done(successFunction)
     .fail(failFunction);
@@ -77,7 +82,9 @@ $(function() {
         },
         // contentType: 'application/json',
         dataType: 'json',
-        Authorization: 'Bearer ' + token,
+        headers: {
+          'Authorization': 'Bearer ' + token
+        },
         crossDomain: true,
 
       })
@@ -106,7 +113,9 @@ $(function() {
       type: 'GET',
       dataType: 'json',
       contentType: 'application/json',
-      Authorization: "Bearer " + token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
       crossDomain: true
 
 

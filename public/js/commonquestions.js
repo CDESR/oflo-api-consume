@@ -2,13 +2,17 @@
 $(function() {
   var url = "https://creds-oflo-server.herokuapp.com/commonquestions/",
     // url            = "http://localhost:7000/",;
-    $commonquestion = $("#commquestion");
+    $commonquestion = $("#commquestion"),
+    token = localStorage.oflo_token;
 
   $.ajax({
 
       url: url,
       type: 'GET',
       datatype: 'json',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
       crossDomain: true
     }).done(successFn1)
     .fail(failFn1);
@@ -47,7 +51,7 @@ $(function() {
       } else {
         $("#answered-check").append('<input class="answered-box" type="checkbox" name="answered" id=' + ansId + ' "VisibleCheckbox">').append('<br/>');
       }
-    };
+    }
   }
 
   function failFn1(jqXHR, textStatus, errorThrown) {
@@ -61,6 +65,9 @@ $(function() {
       type: 'GET',
       datatype: 'json',
       crossDomain: true,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
     }).done(successFn2)
     .fail(failFn2);
 
@@ -101,7 +108,10 @@ $(function() {
         data: {
           "canVote": this.checked
         },
-        datatype: 'json'
+        datatype: 'json',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
       }).done(successFunction)
       .fail(failFunction);
 
@@ -130,13 +140,15 @@ $(function() {
         data: {
           "answered": this.checked
         },
-        datatype: 'json'
+        datatype: 'json',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
       }).done(successFunction)
       .fail(failFunction);
 
 
     function successFunction(data) {
-      console.log(data)
 
     }
 
@@ -169,7 +181,10 @@ $(function() {
           data: {
             "user": user_id
           },
-          datatype: 'json'
+          datatype: 'json',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
         }).done(successFunction)
         .fail(failFunction);
     } else {
@@ -182,10 +197,13 @@ $(function() {
           data: {
             "user": user_id
           },
-          datatype: 'json'
+          datatype: 'json',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
         }).done(successFunction)
         .fail(failFunction);
-    };
+    }
     // console.log($vote);
     // console.log($url);
 
@@ -233,7 +251,9 @@ $(function() {
         data: commQuestion,
         datatype: 'json',
         contentType: "application/json",
-        Authorization: 'Bearer ' + token,
+        headers: {
+          'Authorization': 'Bearer ' + token
+        },
         crossDomain: true
       }).done(successFunction)
       .fail(failFunction);
