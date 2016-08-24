@@ -53,7 +53,8 @@ $(function() {
 
   function successFunction(data) {
     for (var i = 0; i < data.length; i++) {
-      console.log(data);
+      // console.log(data);
+      // console.log(data[i].question_content);
 
       $("#qnListByName").append(document.createTextNode(data[i].question_content)).append('<br/>');
 
@@ -117,6 +118,7 @@ $(function() {
 
     for (var i = 0; i < data.length; i++) {
       $("#qnList").append(document.createTextNode(data[i].question_content)).append('<br/>');
+      // console.log(data[i]);
 
       var ansCheckId = data[i]._id;
 
