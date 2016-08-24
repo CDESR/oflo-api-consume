@@ -14,9 +14,18 @@
   display:inline-block;
 }
 
+input[type=checkbox]{
+  margin-bottom: 13px;
+}
+
+.votenum{
+  margin-bottom: 7px;
+}
+
 #comm-qtions {
   line-height: 46px;
 }
+
 
 
 /* ---------- Modal popup --------- */

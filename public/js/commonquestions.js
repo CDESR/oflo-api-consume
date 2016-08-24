@@ -43,11 +43,9 @@ $(function() {
       var yes = data[i].votedYes.length;
       var no = data[i].votedNo.length;
 
-      console.log(yes);
-      console.log(no);
 
-      $("#yes-total").append(document.createTextNode(yes)).append('<br/>');
-      $("#no-total").append(document.createTextNode(no)).append('<br/>');
+      $("#yes-total").append('<div class="votenum">' + yes + '</div>');
+      $("#no-total").append('<div class="votenum">' + no + '</div>');
 
 
 
