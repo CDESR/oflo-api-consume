@@ -70,16 +70,16 @@ $(function() {
     for (var i = 0; i < data.length; ++i)
     // console.log(data[i]);
     {
-      if(data[i].canVote === "true"){
-      $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
+      if (data[i].canVote === "true") {
+        $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
 
-      var voteYesId = 'vtys-' + data[i]._id;
-      var voteNoId = 'vtno-' + data[i]._id;
+        var voteYesId = 'vtys-' + data[i]._id;
+        var voteNoId = 'vtno-' + data[i]._id;
 
-      $("#voting-options").append('<input type="button" name="vote-yes" class="vote-btn" id=' + voteYesId + ' value="Yes">');
+        $("#voting-options").append('<input type="button" name="vote-yes" class="vote-btn" id=' + voteYesId + ' value="Yes">');
 
-      $("#voting-options").append('<input type="button" name="vote-no" class="vote-btn" id=' + voteNoId + ' value="No">').append('<br/>');
-    }
+        $("#voting-options").append('<input type="button" name="vote-no" class="vote-btn" id=' + voteNoId + ' value="No">').append('<br/>');
+      }
     }
 
   }
@@ -202,7 +202,11 @@ $(function() {
 
 
     function successFunction(data) {
-      alert("Successfully voted");
+      if (data === "Already voted") {
+        alert("You've already voted before!");
+      }else{
+        alert("Successfully voted");
+      }
 
     }
 
