@@ -49,7 +49,7 @@ $(function() {
 
 
 
-      if (data[i].canVote === "true") {
+      if (data[i].canVote) {
         $("#canvote-check").append('<input class="canvote-box"  type="checkbox" name="canvote" id=' + voteId + ' checked "VisibleCheckbox">').append('<br/>');
       } else {
         $("#canvote-check").append('<input class="canvote-box" type="checkbox" name="canvote" id=' + voteId + ' "VisibleCheckbox">').append('<br/>');
