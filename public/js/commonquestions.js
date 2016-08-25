@@ -56,7 +56,7 @@ $(function() {
       }
 
 
-      if (data[i].answered === "true") {
+      if (data[i].answered) {
         $("#answered-check").append('<input class="answered-box" type="checkbox" name="answered" id=' + ansId + ' checked "VisibleCheckbox">').append('<br/>');
       } else {
         $("#answered-check").append('<input class="answered-box" type="checkbox" name="answered" id=' + ansId + ' "VisibleCheckbox">').append('<br/>');
@@ -235,7 +235,6 @@ $(function() {
       console.log('clicked');
       $url = url + commonquestion_id + "/no";
       $.ajax({
-
           url: url + commonquestion_id + "/no",
           type: 'PUT',
           data: {
@@ -244,7 +243,8 @@ $(function() {
           datatype: 'json',
           headers: {
             'Authorization': 'Bearer ' + token
-          }
+          },
+          crossDomain: true
         }).done(successFunction)
         .fail(failFunction);
     }
@@ -264,6 +264,7 @@ $(function() {
 
 
     function successFunction(data) {
+      console.log("success");
       if (data === "Already voted") {
         alert("You've already voted before!");
       }else{
