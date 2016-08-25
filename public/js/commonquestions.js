@@ -232,6 +232,7 @@ $(function() {
         .fail(failFunction);
     } else {
       // $vote = '\"votedNo\"';
+      console.log('clicked');
       $url = url + commonquestion_id + "/no";
       $.ajax({
 
