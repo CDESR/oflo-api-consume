@@ -122,14 +122,17 @@ $(function() {
 
   function successFn2(data) {
     for (var i = 0; i < data.length; ++i) {
-      $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
+      if (data[i].canVote) {
+        $("#comm-qtions").append(document.createTextNode(data[i].commonQuestion)).append('<br/>');
 
-        var voteYesId = 'vtys-' + data[i]._id;
-        var voteNoId = 'vtno-' + data[i]._id;
+          var voteYesId = 'vtys-' + data[i]._id;
+          var voteNoId = 'vtno-' + data[i]._id;
 
-        $("#voting-options").append('<input type="button" name="vote-yes" class="vote-btn" id=' + voteYesId + ' value="Yes">');
+          $("#voting-options").append('<input type="button" name="vote-yes" class="vote-btn" id=' + voteYesId + ' value="Yes">');
 
-      $("#voting-options").append('<input type="button" name="vote-no" class="vote-btn" id=' + voteNoId + ' value="No">').append('<br/>');
+        $("#voting-options").append('<input type="button" name="vote-no" class="vote-btn" id=' + voteNoId + ' value="No">').append('<br/>');
+      }
+
     }
 
   }
